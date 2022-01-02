@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="UTF-8">
+      <title>Churn prediction deployment</title>
+        <script>
+            function FormValidation() {
+                var Tenure = document.forms["RegForm"]["Tenure"];
+                var Contract = document.forms["RegForm"]["Contract"];
+                var Payment = document.forms["RegForm"]["Payment"];
+                var Phone = document.forms["RegForm"]["Phone"];
+                var Internet = document.forms["RegForm"]["Internet"];
+
+                if (Tenure.value == "") {
+                    window.alert("Please enter your tenure.");
+                    Tenure.focus();
+                    return false;
+                }
+
+                if (Contract.value == "none") {
+                    window.alert("Please select your Contract type.");
+                    Contract.focus();
+                    return false;
+                }
+
+                if (Phone.value == "none") {
+                    window.alert("Please select the Phone Service subscription type.");
+                    Phone.focus();
+                    return false;
+                }
+
+                if (Internet.value == "none") {
+                    window.alert("Please select the Internet Service subscription type.");
+                    Internet.focus();
+                    return false;
+                }
+
+                return true;
+            }
+        </script>
+
+        <style>
+              html { width: 100%; height:100%; }
+              body {
+                  box-sizing: border-box;
+                  width: 100%;
+                  font-size: 16px;
+                  float: left;
+                  align-content: center;
+                  align-items: center;
+              }
+              .login {
+              	position: absolute;
+              	top: 0;
+              	left: 0;
+              	margin: 0 0 0 0;
+              	width:1400px;
+              	height:0;
+                align-content: center;
+                align-items: center;
+              }
+
+              .login h1 {
+                color: #000000;
+                text-shadow: 0 0 10px rgba(0,0,0,0.3);
+                letter-spacing:1px;
+                text-align:center;
+              }
+
+              .login form {
+                margin: 0 auto ;
+                width: 400px;
+              }
+
+              .Prediction h1 {
+                position : relative;
+                top: 525px;
+                left: -100px;
+                color: #000000;
+                text-shadow: 0 0 10px rgba(0,0,0,0.3);
+                letter-spacing:1px;
+                align-content: center;
+                align-items: center;
+                text-align:center;
+              }
+
+          </style>
+
+    </head>
+
+    <body style="background: #ffffff;">
+        <div class='login'>
+        <h1 style="text-align: center;">Churn Prediction</h1>
+        <form name="RegForm" form action="{{ url_for('predict')}}" onsubmit="return FormValidation()" method="post">
+						<p>Tenure (in months) : <input type="number" size="65" name="Tenure" />
+						</p>
+
+						<p>Current Contract Mode : <select type="text" name="Contract">
+							<option value="none" selected disabled hidden>Select an Option</option>
+							<option value='Two Year'>Two Year</option>
+							<option value='One Year'>One Year</option>
+							<option value='Month-to-month'>Month-to-month</option></select>
+						</p>
+
+						<p>Payment Method : <select type="text" name="Payment">
+							<option value="none" selected disabled hidden>Select an Option</option>
+							<optgroup label="Automatic">
+							<option value='Bank transfer'>Bank transfer</option>
+							<option value='Credit Card'>Credit Card</option></optgroup>
+							<optgroup label="Manual">
+							<option value='Electronic check'>Electronic check</option>
+							<option value='Mailed check'>Mailed check</option></optgroup></select>
+						</p>
+
+						<p>Phone Service : <select type="text" name="Phone">
+							<option value="none" selected disabled hidden>Select an Option</option>
+							<option value='Not subscribed'>Not subscribed</option>
+							<optgroup label="Types">
+							<option value='Single Line'>Single Line</option>
+							<option value='Multiple Lines'>Multiple Lines</option></optgroup></select>
+						</p>
+
+						<p>Internet Service : <select type="text" name="Internet">
+							<option value="none" selected disabled hidden>Select an Option</option>
+							<option value='Not subscribed'>Not subscribed</option>
+							<optgroup label="Types">
+							<option value='Fiber optic'>Fiber optic</option>
+							<option value='DSL'>DSL</option></optgroup></select>
+						</p>
+
+						<p>Tick down the services subscribed<br><br>
+						<input type="checkbox" id="OS" name="OS" value="OS">
+					  <label for="OS"> Online Security </label><br>
+					  <input type="checkbox" id="OB" name="OB" value="OB">
+					  <label for="OB"> Online Backup </label><br>
+					  <input type="checkbox" id="TS" name="TS" value="TS">
+					  <label for="TS"> Tech Support </label><br>
+						<input type="checkbox" id="SM" name="SM" value="SM">
+					  <label for="SM"> Streaming Movies </label><br>
+						<input type="checkbox" id="ST" name="ST" value="ST">
+					  <label for="ST"> Streaming TV </label><br>
+            </p>
+
+            <p>Others<br><br>
+						<input type="checkbox" id="SC" name="SC" value="SC">
+					  <label for="SC"> I am a Senior Citizen </label><br>
+
+						<input type="checkbox" id="PB" name="PB" value="PB">
+					  <label for="PB"> I opt for Paperless Billing </label><br><br>
+
+            <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+
+            </p>
+        </form>
+        <br>
+        <br>
+      </div>
+      <div class='Prediction'>
+        <h1>{{ prediction_text }}</h1>
+      </div>
+    </body>
+</html>
