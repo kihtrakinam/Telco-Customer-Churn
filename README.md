@@ -9,7 +9,7 @@
 **Packages:** pandas, numpy, statsmodel, scipy, matplotlib, seaborn, sklearn, imblearn, flask, gunicorn
 **Model Deployment:** Flask, Github, Heroku 
 
-**Deployed model link** : https://telco-churn-bnb.herokuapp.com/
+**Deployed model link** : https://telco-churn-bnb.herokuapp.com/ <br><br>
 ![alt text](https://github.com/kihtrakinam/Telco-Customer-Churn/blob/91198b6473d213b6a063f71c75ad431b9f53e5d2/Images/9_Model_deployment_heroku.JPG "Deployed model in Heroku")
 
 ## Dataset Features and Description
